@@ -1,7 +1,6 @@
 package org.originit;
 
 import org.originit.controller.HelloController;
-import org.originit.factory.BeanFactory;
 import org.originit.factory.impl.ClasspathPropsBeanFactory;
 
 /**

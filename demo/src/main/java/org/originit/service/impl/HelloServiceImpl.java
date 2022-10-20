@@ -1,10 +1,7 @@
 package org.originit.service.impl;
 
 import org.originit.dao.HelloDao;
-import org.originit.dao.factory.DaoFactory;
-import org.originit.dao.impl.HelloDaoImpl;
-import org.originit.dao.impl.HelloDaoOracleImpl;
-import org.originit.factory.BeanFactory;
+import org.originit.hand.factory.BeanFactory;
 import org.originit.service.HelloService;
 
 public class HelloServiceImpl implements HelloService {

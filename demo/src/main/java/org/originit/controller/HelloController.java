@@ -1,11 +1,8 @@
 package org.originit.controller;
 
 
-import org.originit.dao.HelloDao;
-import org.originit.factory.BeanFactory;
+import org.originit.hand.factory.BeanFactory;
 import org.originit.service.HelloService;
-import org.originit.service.factory.ServiceFactory;
-import org.originit.service.impl.HelloServiceImpl;
 
 public class HelloController {
 
