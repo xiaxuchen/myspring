@@ -17,4 +17,8 @@ public class LoggerDelegateProcessor implements BeanPostProcessor {
         }
         return bean;
     }
+
+    void des(){
+        System.out.println("des");
+    }
 }

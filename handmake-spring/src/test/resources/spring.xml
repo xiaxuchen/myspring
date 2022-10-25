@@ -7,5 +7,5 @@
             <arg ref="helloDao"/>
         </constructor>
     </bean>
-    <bean class="org.originit.processor.LoggerDelegateProcessor"/>
+    <bean class="org.originit.processor.LoggerDelegateProcessor" destory-method="des"/>
 </beans>

@@ -9,4 +9,9 @@ public interface SingletonBeanRegistry {
      * @param <T> 类型
      */
     <T> T getSingleton(String beanName);
+
+    /**
+     * 销毁单例
+     */
+    void destorySingltons();
 }

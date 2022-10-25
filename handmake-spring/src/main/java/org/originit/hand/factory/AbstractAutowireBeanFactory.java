@@ -1,6 +1,9 @@
 package org.originit.hand.factory;
 
 import cn.hutool.core.util.StrUtil;
+import org.originit.hand.bean.DisposableAdater;
+import org.originit.hand.bean.DisposableBean;
+import org.originit.hand.bean.InitializeBean;
 import org.originit.hand.exception.BeansException;
 import org.originit.hand.factory.support.*;
 import org.originit.hand.factory.support.impl.CglibInstantiationStrategy;
@@ -22,6 +25,8 @@ public abstract class AbstractAutowireBeanFactory extends AbstractBeanFactory im
     protected InstantiationStrategy instantiationStrategy = new CglibInstantiationStrategy();
 
     protected ReferenceDelegateCreator referenceDelegateCreator = new CglibReferenceDelegateCreator();
+
+    protected List<DisposableBean> disposableBeans = new ArrayList<>();
 
     @Override
     protected <T> T createBean(String beanName, BeanDefinition beanDefinition) {
@@ -116,6 +121,7 @@ public abstract class AbstractAutowireBeanFactory extends AbstractBeanFactory im
             }
         }
         invokeInitMethod(beanName,bean,definition);
+        registerDestoryHook(bean,definition);
         for (Object item : beanPostProcessors) {
             BeanPostProcessor beanPostProcessor = (BeanPostProcessor) item;
             Object proxy = beanPostProcessor.postProcessAfterInitialization(bean, beanName);
@@ -128,7 +134,23 @@ public abstract class AbstractAutowireBeanFactory extends AbstractBeanFactory im
         return bean;
     }
 
+    private void registerDestoryHook( Object bean, BeanDefinition definition) {
+        disposableBeans.add(new DisposableAdater(bean,definition));
+    }
+
+    @Override
+    public void destorySingltons() {
+        for (DisposableBean disposableBean : disposableBeans) {
+            disposableBean.destory();
+        }
+        disposableBeans.clear();
+        singletons.clear();
+    }
+
     protected void invokeInitMethod(String beanName, Object bean, BeanDefinition definition) {
+        if (bean instanceof InitializeBean) {
+            ((InitializeBean) bean).afterPropertiesSet();
+        }
         if (StrUtil.isNotBlank(definition.getInitMethod())) {
             try {
                 final Method initMethod = definition.getBaseClass().getDeclaredMethod(definition.getInitMethod());

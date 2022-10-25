@@ -19,4 +19,5 @@ public interface BeanFactory {
     <T> T getBean(String name);
 
     void preInstantial() throws BeansException;
+
 }

@@ -29,6 +29,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     @Override
     public void refresh() {
+        registerShutdownHooks();
+
         refreshBeanFactory();
 
         invokeBeanFactoryPostProcessor();
@@ -62,4 +64,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     protected abstract DefaultListableBeanFactory getBeanFactory();
 
+    @Override
+    public void close() {
+        getBeanFactory().destorySingltons();
+    }
 }

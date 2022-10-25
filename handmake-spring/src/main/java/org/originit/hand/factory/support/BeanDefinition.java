@@ -21,6 +21,16 @@ public class BeanDefinition {
 
     private String initMethod;
 
+    private String destoryMethod;
+
+    public String getDestoryMethod() {
+        return destoryMethod;
+    }
+
+    public void setDestoryMethod(String destoryMethod) {
+        this.destoryMethod = destoryMethod;
+    }
+
     public String getInitMethod() {
         return initMethod;
     }

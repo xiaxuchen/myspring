@@ -1,8 +1,9 @@
 package org.originit.relate.service;
 
+import org.originit.hand.bean.DisposableBean;
 import org.originit.relate.dao.HelloDao;
 
-public class HelloService {
+public class HelloService implements DisposableBean {
 
     private String name;
 
@@ -22,5 +23,10 @@ public class HelloService {
 
     private void init() {
         System.out.println("init");
+    }
+
+    @Override
+    public void destory() {
+        System.out.println("dest");
     }
 }
