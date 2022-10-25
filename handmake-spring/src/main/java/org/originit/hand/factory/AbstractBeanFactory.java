@@ -3,7 +3,10 @@ package org.originit.hand.factory;
 import org.originit.hand.factory.support.BeanDefinition;
 import org.originit.hand.factory.support.impl.DefaultSingletonBeanRegistry;
 
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+/**
+ * @author xxc
+ */
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableListableBeanFactory {
 
     @Override
     public <T> T getBean(String name) {
@@ -17,12 +20,6 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         return (T) singleton;
     }
 
-    /**
-     * 通过beanname获取bean定义
-     * @param beanName bean名
-     * @return bean
-     */
-    protected abstract BeanDefinition getBeanDefinition(String beanName);
 
     /**
      * 创建Bean

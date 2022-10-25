@@ -1,6 +1,8 @@
 package org.originit.hand.factory;
 
 
+import org.originit.hand.exception.BeansException;
+
 /**
  * Bean工厂
  * @author xxc
@@ -15,4 +17,6 @@ public interface BeanFactory {
      * @param <T>
      */
     <T> T getBean(String name);
+
+    void preInstantial() throws BeansException;
 }

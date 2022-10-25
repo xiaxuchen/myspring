@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean id="helloDao" class="org.originit.relate.dao.HelloDao"/>
+    <bean id="helloService" class="org.originit.relate.service.HelloService" init-method="init">
+        <constructor>
+            <arg value="xxc" />
+            <arg ref="helloDao"/>
+        </constructor>
+    </bean>
+    <bean class="org.originit.processor.LoggerDelegateProcessor"/>
+</beans>

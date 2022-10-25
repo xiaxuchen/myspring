@@ -19,4 +19,8 @@ public class HelloService {
     public void sayHello() {
         System.out.println(helloDao.hello() + "," + name);
     }
+
+    private void init() {
+        System.out.println("init");
+    }
 }

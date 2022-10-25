@@ -17,16 +17,36 @@ public class BeanDefinition {
 
     private String beanName;
 
-    private PropertyValues propertyValues;
+    private String scope;
 
-    private PropertyValues constructProperties;
+    private String initMethod;
 
-    public PropertyValues getConstructProperties() {
-        return constructProperties;
+    public String getInitMethod() {
+        return initMethod;
     }
 
-    public void setConstructProperties(PropertyValues constructProperties) {
-        this.constructProperties = constructProperties;
+    public void setInitMethod(String initMethod) {
+        this.initMethod = initMethod;
+    }
+
+    private PropertyValues propertyValues = new PropertyValues();
+
+    private ConstructArgs constructArgs;
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    public ConstructArgs getConstructArgs() {
+        return constructArgs;
+    }
+
+    public void setConstructArgs(ConstructArgs constructArgs) {
+        this.constructArgs = constructArgs;
     }
 
     public PropertyValues getPropertyValues() {

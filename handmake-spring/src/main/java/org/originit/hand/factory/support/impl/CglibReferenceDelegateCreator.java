@@ -17,8 +17,7 @@ public class CglibReferenceDelegateCreator implements ReferenceDelegateCreator {
         enhancer.setSuperclass(superClass);
         enhancer.setCallback((MethodInterceptor) (o, method, objects, methodProxy) -> {
             final Object bean = beanFactory.getBean(beanName);
-            final Method destMethod = bean.getClass().getDeclaredMethod(method.getName(), method.getParameterTypes());
-            return destMethod.invoke(bean,objects);
+            return methodProxy.invoke(bean,objects);
         });
         return (T) enhancer.create();
     }
