@@ -1,5 +1,6 @@
 package org.originit.hand.factory.support;
 
+
 public interface SingletonBeanRegistry {
 
     /**
@@ -14,4 +15,5 @@ public interface SingletonBeanRegistry {
      * 销毁单例
      */
     void destorySingltons();
+
 }
