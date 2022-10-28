@@ -28,8 +28,4 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
         return beanFactory;
     }
 
-    @Override
-    public void registerShutdownHooks() {
-        Runtime.getRuntime().addShutdownHook(new Thread(this::close));
-    }
 }

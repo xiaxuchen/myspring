@@ -67,8 +67,9 @@ public class DefaultListableBeanFactoryTest extends TestCase {
         assertThrows(BeansException.class,()-> beanFactory.getBeanDefinition("none"));
         assertThrows(BeansException.class,() -> beanFactory.getBean("none"));
         assertNotNull(beanFactory.getBeanDefinition("helloService"));
-        assertSame(beanFactory.getBean("helloService"), beanFactory.getBean("helloService"));
-        final HelloService helloService = beanFactory.getBean("helloService");
+        assertNotSame(beanFactory.getBean("hsf"), beanFactory.getBean("helloService"));
+        assertNotSame(beanFactory.getBean("helloService"), beanFactory.getBean("helloService"));
+        final HelloService helloService = beanFactory.getBean("hsf");
         helloService.sayHello();
     }
 }

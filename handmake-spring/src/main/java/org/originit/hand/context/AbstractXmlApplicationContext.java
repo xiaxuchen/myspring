@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+
 public abstract class AbstractXmlApplicationContext extends AbstractRefreshableApplicationContext{
 
     protected List<String> configLocations;

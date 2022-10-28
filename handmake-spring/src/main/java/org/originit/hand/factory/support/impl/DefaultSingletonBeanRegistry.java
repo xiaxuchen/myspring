@@ -7,6 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
+    public static Object NULL_OBJECT = null;
+
     protected Map<String,Object> singletons = new ConcurrentHashMap<>();
 
     /**

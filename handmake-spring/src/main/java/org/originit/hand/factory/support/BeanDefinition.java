@@ -1,10 +1,24 @@
 package org.originit.hand.factory.support;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.StrUtil;
+import org.originit.hand.factory.ConfigurableBeanFactory;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * Bean定义
  * @author xxc
  */
 public class BeanDefinition {
+
+    public static final String SCOPE_SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON;
+    public static final String SCOPE_PROTOTYPE = ConfigurableBeanFactory.SCOPE_PROTOTYPE;
+
+    public static final Set<String> SCOPE_LIST = CollectionUtil.set(false,SCOPE_SINGLETON,SCOPE_PROTOTYPE);
     public BeanDefinition() {
     }
 
@@ -43,11 +57,23 @@ public class BeanDefinition {
 
     private ConstructArgs constructArgs;
 
+    public boolean isSinglton() {
+        return SCOPE_SINGLETON.equalsIgnoreCase(scope);
+    }
+
+    public boolean isPrototype() {
+        return SCOPE_PROTOTYPE.equalsIgnoreCase(scope);
+    }
+
     public String getScope() {
         return scope;
     }
 
     public void setScope(String scope) {
+        if (StrUtil.isBlank(scope)) {
+            scope = SCOPE_SINGLETON;
+        }
+        Assert.isTrue(SCOPE_LIST.contains(scope.toLowerCase()),"scope must in set of " + SCOPE_LIST);
         this.scope = scope;
     }
 

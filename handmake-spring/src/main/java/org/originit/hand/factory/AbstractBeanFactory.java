@@ -2,23 +2,57 @@ package org.originit.hand.factory;
 
 import org.originit.hand.exception.BeansException;
 import org.originit.hand.factory.support.BeanDefinition;
+import org.originit.hand.factory.support.FactoryBean;
+import org.originit.hand.factory.support.FactoryBeanSupportRegistry;
 import org.originit.hand.factory.support.ObjectRegisterBeanFactory;
-import org.originit.hand.factory.support.impl.DefaultSingletonBeanRegistry;
 
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author xxc
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ObjectRegisterBeanFactory,ConfigurableListableBeanFactory {
+public abstract class AbstractBeanFactory extends FactoryBeanSupportRegistry implements ObjectRegisterBeanFactory,ConfigurableListableBeanFactory {
+
+    public static final String FACTORY_BEAN_SUFFIX = "#FactoryBean";
 
     protected Map<String,Object> registerObjectMap = new ConcurrentHashMap<>();
 
     @Override
     public <T> T getBean(String name) {
         final BeanDefinition beanDefinition = getBeanDefinition(name);
+        if (FactoryBean.class.isAssignableFrom(beanDefinition.getBaseClass())) {
+            return (T)doGetFactoryBean(name,beanDefinition);
+        }
+        if (beanDefinition.isSinglton()) {
+            return doGetSinglton(name, beanDefinition);
+        } else {
+            return doGetPrototype(name,beanDefinition);
+        }
+
+    }
+
+    private Object doGetFactoryBean(String name, BeanDefinition beanDefinition) {
+        final Object bean = getSingleton(name);
+        if (bean == null) {
+            final String factoryBeanName = beanDefinition.getBeanName() + FACTORY_BEAN_SUFFIX;
+            Object factoryBean = getSingleton(factoryBeanName);
+            if (factoryBean == null) {
+                factoryBean = createBean(factoryBeanName, beanDefinition);
+                addSingleton(factoryBeanName,factoryBean);
+            }
+            return getObjectFromFactoryBean((FactoryBean) factoryBean,name);
+        }
+        return bean;
+    }
+
+    private <T> T doGetPrototype(String name, BeanDefinition beanDefinition) {
+        synchronized (beanDefinition) {
+            return createBean(name,beanDefinition);
+        }
+    }
+
+    private <T> T doGetSinglton(String name, BeanDefinition beanDefinition) {
         final Object singleton = getSingleton(name);
         if (singleton == null) {
             final Object bean = createBean(name, beanDefinition);
