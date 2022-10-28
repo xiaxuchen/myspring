@@ -15,6 +15,13 @@ public class ConstructArgs {
         }
     }
 
+    public ConstructArgs(Object arg) {
+        if (args == null) {
+            this.args = new ArrayList<>();
+            this.args.add(arg);
+        }
+    }
+
     public ConstructArgs() {
         this(null);
     }

@@ -8,5 +8,5 @@ import org.originit.hand.factory.ConfigurableBeanFactory;
  */
 public interface BeanFactoryPostProcessor {
 
-    BeanFactory postProcessBeanFactory(ConfigurableBeanFactory beanFactory);
+    void postProcessBeanFactory(ConfigurableBeanFactory beanFactory);
 }

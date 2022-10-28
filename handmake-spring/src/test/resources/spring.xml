@@ -10,5 +10,6 @@
     <bean class="org.originit.relate.factoryBean.HelloServiceFactory" name="hsf">
         <property name="helloDao" ref="helloDao"></property>
     </bean>
+    <bean class="org.originit.event.SpringRefreshEventListener" name="refresh"></bean>
     <bean class="org.originit.processor.LoggerDelegateProcessor" destory-method="des"/>
 </beans>
